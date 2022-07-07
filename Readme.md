@@ -58,8 +58,7 @@ class QueryHandler : QueryHandlerBase<Query, object>
 Both ```QueryHandlerBase``` and ```CommandHandlerBase``` as well as their async twins implement ```IQueryHandler<T, TR>``` and '''ICommandHandler<T, TR>``` correspondingly:
 
 ```
- public abstract class QueryHandlerBase<T, TR> 
-   : HandlerBase<T, TR>, IQueryHandler<T, TR> where T : IQuery
+ public abstract class QueryHandlerBase<T, TR> : HandlerBase<T, TR>, IQueryHandler<T, TR> where T : IQuery
  {
  }
 ```	
@@ -67,8 +66,7 @@ Both ```QueryHandlerBase``` and ```CommandHandlerBase``` as well as their async 
 and 
 
 ```
- public abstract class CommandHandlerBase<T, TR> 
-   : HandlerBase<T, TR>, ICommandHandler<T, TR> where T : ICommand
+ public abstract class CommandHandlerBase<T, TR> : HandlerBase<T, TR>, ICommandHandler<T, TR> where T : ICommand
  {
  }
 ```	
@@ -79,8 +77,7 @@ The above definitions are excellent candidates for ctor DI. We can pass the requ
 ```
 public MyClass(IQueryHandler<Query, object> handler)
 {
-  this.handler = handler 
-    ?? throw new ArgumentNullException(nameof(handler));
+  this.handler = handler ?? throw new ArgumentNullException(nameof(handler));
 }
 ```
 
@@ -149,4 +146,9 @@ public override int Handle(DivisionByZeroQuery query)
 which handles exceptions thrown in the original handler's ```Handle()``` body. 
 
 Decorating handlers can be nested of course. So, you can have a exception catching handler wrapping the original one, which in turn is wrapped by a logging handler, which in turn... and so on.
+
+### The [Decorator] attribute
+
+Decorating handler follow exactly the same layout as "normal" handlers. They inherit the same class as the decorated handler, but are not injected the same way. Instead, the decorated handler keeps track of what 
+
 
