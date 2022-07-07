@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="CommandsAsync\**" />
+      <Compile Remove="Decorators\**" />
+      <Compile Remove="Logs\**" />
+      <Compile Remove="QueriesAsync\**" />
+      <EmbeddedResource Remove="CommandsAsync\**" />
+      <EmbeddedResource Remove="Decorators\**" />
+      <EmbeddedResource Remove="Logs\**" />
+      <EmbeddedResource Remove="QueriesAsync\**" />
+      <None Remove="CommandsAsync\**" />
+      <None Remove="Decorators\**" />
+      <None Remove="Logs\**" />
+      <None Remove="QueriesAsync\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Commands\DemoCommand.cs" />
+      <Compile Remove="Commands\DemoCommandHandler.cs" />
+      <Compile Remove="Commands\DemoCommandResult.cs" />
+      <Compile Remove="Commands\DivisionByZeroCommand.cs" />
+      <Compile Remove="Commands\DivisionByZeroCommandHandler.cs" />
+      <Compile Remove="Commands\HelloCommand.cs" />
+      <Compile Remove="Commands\HelloCommandHandler.cs" />
+      <Compile Remove="Queries\DemoQuery.cs" />
+      <Compile Remove="Queries\DemoQueryHandler.cs" />
+      <Compile Remove="Queries\DivisionByZeroQuery.cs" />
+      <Compile Remove="Queries\DivisionByZeroQueryHandler.cs" />
+      <Compile Remove="Queries\HelloQuery.cs" />
+      <Compile Remove="Queries\HelloQueryHandler.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FileLogger" Version="1.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OpenCqs\OpenCqs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

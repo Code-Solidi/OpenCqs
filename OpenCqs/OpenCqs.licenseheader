@@ -1,0 +1,17 @@
+﻿extensions: .cs 
+/*
+ * Copyright (c) 2021-2022 Code Solidi Ltd. All rights reserved.
+ * Licensed under the OSL-3.0, https://opensource.org/licenses/OSL-3.0.
+ */
+
+extensions: .cshtml
+@*
+ * Copyright (c) 2021-2022 Code Solidi Ltd. All rights reserved.
+ * Licensed under the OSL-3.0, https://opensource.org/licenses/OSL-3.0.
+ *@
+extensions: .aspx .ascx
+extensions:  .xml .config .xsd
+<%-- 
+ Copyright (c) 2021-2022 Code Solidi Ltd. All rights reserved.
+ Licensed under the OSL-3.0, https://opensource.org/licenses/OSL-3.0.
+--%>
