@@ -127,23 +127,23 @@ public override string Handle(DecoratedTestQuery query)
 This handler logs something before and after calling the "original" ```Handle()``` method. Or this:
 
 ```
-public override int Handle(DivisionByZeroQuery query)
+public override int Handle(StopWatchQuery query)
 {
-  var result = default(int);
-  try
-  {
-    result = this.next.Handle(query);
-  }
-  catch (Exception x)
-  {
-    if (!this.HandleException(x)) { throw; }
-  }
+  var stopWatch = new Stopwatch();
+  stopWatch.Start();
 
+  var result = this.Handler.Handle(query);
+
+  stopWatch.Stop();
+  var ts = stopWatch.Elapsed;
+
+  this.logger.LogDebug($"Execution time {(ts.TotalMilliseconds / 1000):0.0000000}s.");
+  
   return result;
 }
 ```	
 
-which handles exceptions thrown in the original handler's ```Handle()``` body. 
+which estimates the execution time for the original handler's ```Handle()``` body. 
 
 Decorating handlers can be nested of course. So, you can have a exception catching handler wrapping the original one, which in turn is wrapped by a logging handler, which in turn... and so on.
 
@@ -160,7 +160,12 @@ public DecoratedQueryHandler(ILogger logger)
 }
 ```
 
+## Roadmap
+This project is in a relatively stable state. However, it may not be functionally complete, contain defects (bugs) or other omissions.
 
+In such a case if you want to contribute please, open an issue or, if you have fixed something in the source code, create a pull request. 
+
+Thank you!
 
 	
 
