@@ -17,6 +17,11 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageIconUrl />
         <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/Code-Solidi/OpenCqs</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>CQS</PackageTags>
+        <PackageReleaseNotes>This is the first release of OpenCqs - v1.0.0.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
@@ -39,6 +44,10 @@
       <None Include="..\Packaging\Link.png">
         <Pack>True</Pack>
         <PackagePath></PackagePath>
+      </None>
+      <None Include="..\Readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
       </None>
     </ItemGroup>
 
