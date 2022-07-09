@@ -1,6 +1,10 @@
 # OpenCqs
 An implementation of CQS with built-in dependency injection of all handlers. More about it [here](https://blogs.cuttingedge.it/steven/posts/2011/meanwhile-on-the-command-side-of-my-architecture/) and [here](https://www.dotnetcurry.com/patterns-practices/1305/aspect-oriented-programming-aop-csharp-using-solid).
 
+The **NuGet** package is available for [download](https://www.nuget.org/packages/OpenCqs/):
+
+```dotnet add package OpenCqs --version 1.0.1```
+
 ## What is CQS?
 Command Query Separation (**CQS**) is a design pattern that first appeared in the Eiffel programming language, and was introduced by Bertrand Meyer. In just a sentence 
 it divides class methods in two major categories: 
