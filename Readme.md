@@ -55,7 +55,7 @@ class QueryHandler : QueryHandlerBase<Query, object>
 ```
 
 ## Dependency Injection
-Both ```QueryHandlerBase``` and ```CommandHandlerBase``` as well as their async twins implement ```IQueryHandler<T, TR>``` and '''ICommandHandler<T, TR>``` correspondingly:
+Both ```QueryHandlerBase``` and ```CommandHandlerBase``` as well as their async twins implement ```IQueryHandler<T, TR>``` and ```ICommandHandler<T, TR>``` correspondingly:
 
 ```
  public abstract class QueryHandlerBase<T, TR> : HandlerBase<T, TR>, IQueryHandler<T, TR> where T : IQuery
