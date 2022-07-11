@@ -8,8 +8,8 @@ The **NuGet** package is available for [download](https://www.nuget.org/packages
 ## What is CQS?
 Command Query Separation (**CQS**) is a design pattern that first appeared in the Eiffel programming language, and was introduced by Bertrand Meyer. In just a sentence 
 it divides class methods in two major categories: 
-- commands &nbsp; each command performs an action, or 
-- queries - a query returns data to the caller.
+- commands: each command performs an action, or 
+- queries: a query returns data to the caller.
 
 
 This is the Single Responsibility Principle on a method level, which states the a method is either a query or a command but never both.
@@ -121,7 +121,7 @@ There has to be a line
 
 (or ```AdTransient, AddSingleton```) preceeding the ctor injection. Imagine also a real appllication with **lots of queries, commands, and handlers**.
 
-A good practice in CQS is to define many small, atomic handlers, thus splitting a complex tasks into smaller and manageable chunks. This is good if there's an issue - it can be spotted very easily, but also leads to forgotten registrations, which is an issue by itself.
+A good practice in CQS is to define many small, atomic handlers, thus splitting a complex tasks into smaller and manageable chunks. This is good if there's an issue &ndash; it can be spotted very easily, but also leads to forgotten registrations, which is an issue by itself.
 
 ### Automatic DI registrations
 **OpenCqs** defines the ```AddHandlers()``` method which takes care of all registrations in an assembly, just invoke it where the <query, handler> (<command, handler>) registrations should go:
