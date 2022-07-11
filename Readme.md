@@ -10,6 +10,8 @@ Command Query Separation (**CQS**) is a design pattern that first appeared in th
 it divides class methods in two major categories: 
 - commands - each command performs an action, or 
 - queries - a query returns data to the caller.
+
+
 This is the Single Responsibility Principle on a method level, which states the a method is either a query or a command but never both.
 
 In addition commands returns void and queries change nothing, so they have no side effects.
