@@ -56,6 +56,7 @@ class QueryHandler : QueryHandlerBase<Query, object>
   object Handle(Query query)
   {
     // implementation here
+    return something;
   }
 }
 ```
