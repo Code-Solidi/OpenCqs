@@ -140,7 +140,9 @@ In addition there are "decorating" handlers which are wrappers arround the actua
 public override string Handle(DecoratedTestQuery query)
 {
   this.logger.LogInformation("...");
-  var result = this.next?.Handle(query);
+  
+  var result = this.next.Handle(query); // inner (decorated) handlers called
+  
   this.logger.LogInformation("...");
   return result;
 }
@@ -154,7 +156,7 @@ public override int Handle(StopWatchQuery query)
   var stopWatch = new Stopwatch();
   stopWatch.Start();
 
-  var result = this.Handler.Handle(query);
+  var result = this.next.Handle(query); // inner (decorated) handlers called
 
   stopWatch.Stop();
   var ts = stopWatch.Elapsed;
