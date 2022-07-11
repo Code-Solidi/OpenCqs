@@ -29,10 +29,25 @@ class QueryHandler
   object Handle(Query query)
   {
     // implementation here
+    return something;
   }
 }
 ```
+or
+```
+class Command 
+{
+  // parameters here
+}
 
+class CommandHandler 
+{
+  void Handle(Command command)
+  {
+    // implementation here
+  }
+}
+```
 
 ## What is OpenCqs?
 **OpenCqs** defines both ```IQuery``` and ```ICommand``` which serve as the implementation bases for actual queries and commands. **OpenCqs** defines two base clasees for implementing the corresponding handlers: 
