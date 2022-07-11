@@ -171,16 +171,20 @@ Decorating handlers can be nested of course. So, you can have a exception catchi
 
 ### The [Decorator] attribute
 
-Decorating handler follow exactly the same layout as "normal" handlers. They inherit the same class as the decorated handler, but are not injected the same way. Instead, the decorated handler keeps track of its decorators. 
+Decorating handlers follow exactly the same layout as "normal" handlers. They inherit the same class as the decorated handler, but are not injected the same way. Instead, the decorated handler keeps track of its decorators. 
 
 The decorators are added in the decorated handler ctor like this:
 ```
 public DecoratedQueryHandler(ILogger logger)
 {
-  this.Add(new ExceptionQueryHandler(logger));   // closer
-  this.Add(new LoggingQueryHandler(logger));     // farther
+  this.Add(new StopWatchQueryHandler(logger));   // closest
+  this.Add(new ExceptionQueryHandler(logger));   
+  //...
+  this.Add(new LoggingQueryHandler(logger));     // farthest
 }
 ```
+
+One thing to note &ndash; the first call to ```Add(...)``` adds a decorating handler which is the closest to the "normal" one, the next call wraps both in the second handler, and so on. The actual excution starts with the farthest hadler and digs down and in until it reaches the original ("normal") one. Then execution 'pops up' until the farthest handler is reached again.
 
 ## Roadmap
 This project is in a relatively stable state. However, its functionality may be extended, or it may contain bugs or other deffects and omissions.
