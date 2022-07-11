@@ -8,7 +8,7 @@ The **NuGet** package is available for [download](https://www.nuget.org/packages
 ## What is CQS?
 Command Query Separation (**CQS**) is a design pattern that first appeared in the Eiffel programming language, and was introduced by Bertrand Meyer. In just a sentence 
 it divides class methods in two major categories: 
-- commands - each command performs an action, or 
+- commands &nbsp; each command performs an action, or 
 - queries - a query returns data to the caller.
 
 
