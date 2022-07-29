@@ -121,7 +121,7 @@ For each and every handler there has to be a registration like the one below:
 
 (or ```AdTransient, AddSingleton```) preceeding the ctor injection. Imagine also a real appllication with **lots of queries, commands, and handlers**.
 
-A good practice in CQS is to define many small, atomic handlers, thus splitting a complex tasks into smaller and manageable chunks. This is good if there's an issue &ndash; it can be spotted very easily, but also leads to forgotten registrations, which is an issue by itself. The missing registration wu becomes really difficult to be found among the large number of similar ones.
+A good practice in CQS is to define many small, atomic handlers, thus splitting complex tasks into smaller and manageable chunks. This is good if there's an issue &ndash; it can be spotted very easily, but also leads to forgotten registrations, which is an issue by itself. The missing registration becomes really difficult to find among the large number of similar ones.
 
 ### Automatic DI registrations
 **OpenCqs** defines the ```AddHandlers()``` method which takes care of all registrations in an assembly, just invoke it where the <query, handler> (<command, handler>) registrations should go:
