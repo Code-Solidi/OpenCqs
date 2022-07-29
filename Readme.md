@@ -174,7 +174,7 @@ Decorating handlers can be nested. So, you can have an error (exception catching
 
 Thus you can define a preparation step, and a post-call step having all the necessary tasks done by other handlers leaving the original totally ignorant of the context in whcih they are used. Sounds much like AOP, eh?
 
-For example, you can define a event-generating handler which fires an event either before, or after calling the original one, or both. You can also have an access control handler which, given the user executing the command/query, deteremines if the user is allowed to perform this type of action to this typr of object. (Remember the old good ACE and ACL in Windows NT? I'm going to how you how to do this some times later.)
+For example, you can define a event-generating handler which fires an event either before, or after calling the original one, or both. You can also have an access control handler which, when executing the command/query, deteremines if the user (either anonymous, or authenticated) is allowed to perform this type of action on this object. (Remember the good old ACE and ACL in Windows NT? I'm going to show you how to do this somewhat later &mdash; this is yet to come.)
 
 ### The [Decorator] attribute
 
