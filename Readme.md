@@ -170,7 +170,11 @@ public override int Handle(StopWatchQuery query)
 
 which estimates the execution time for the original handler's ```Handle()``` body. 
 
-Decorating handlers can be nested of course. So, you can have a exception catching handler wrapping the original one, which in turn is wrapped by a logging handler, which in turn... and so on.
+Decorating handlers can be nested. So, you can have an error (exception catching) handler wrapping the original one, which in turn is wrapped by a logging handler, which in turn... and so on.
+
+Thus you can define a preparation step, and a post-call step having all the necessary tasks done by other handlers leaving the original totally ignorant of the context in whcih they are used. Sounds much like AOP, eh?
+
+For example, you can define a event-generating handler which fires an event either before, or after calling the original one, or both. You can also have an access control handler which, given the user executing the command/query, deteremines if the user is allowed to perform this type of action to this typr of object. (Remember the old good ACE and ACL in Windows NT? I'm going to how you how to do this some times later.)
 
 ### The [Decorator] attribute
 
@@ -187,7 +191,7 @@ public DecoratedQueryHandler(ILogger logger)
 }
 ```
 
-One thing to note &ndash; the first call to ```Add(...)``` adds a decorating handler which is the closest to the "normal" one, the next call wraps both in the second handler, and so on. The actual excution starts with the farthest hadler and digs down and in until it reaches the original ("normal") one. Then execution 'pops up' until the farthest handler is reached again.
+One thing to note &ndash; the first call to ```Add(...)``` adds a decorating handler which is the closest to the "original" one, the next call wraps both in the second handler, and so on. The actual excution starts with the farthest hadler and digs down and inside until it reaches the original one. Then execution 'pops up' until the farthest handler is reached again.
 
 ## Roadmap
 This project is in a relatively stable state. However, its functionality may be extended, or it may contain bugs or other deffects and omissions.
