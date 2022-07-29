@@ -93,7 +93,7 @@ and
  }
 ```	
  
-The above definitions are excellent candidates for ctor DI. We can pass the required interfaces but leave the resolution of the implementations to the DI container:
+The above definitions are excellent candidates for constructor DI. We can pass the required interfaces but leave the resolution of the implementations to the DI container:
 
 
 ```
@@ -119,7 +119,7 @@ For each and every handler there has to be a registration like the one below:
   services.AddScoped<IQueryHandler<Query, object>, QueryHandle>();
 ```
 
-(or ```AdTransient, AddSingleton```) preceeding the ctor injection. Imagine also a real appllication with **lots of queries, commands, and handlers**.
+(or ```AdTransient, AddSingleton```) preceeding the constructor injection. Imagine also a real appllication with **lots of queries, commands, and handlers**.
 
 A good practice in CQS is to define many small, atomic handlers, thus splitting complex tasks into smaller and manageable chunks. This is good if there's an issue &ndash; it can be spotted very easily, but also leads to forgotten registrations, which is an issue by itself. The missing registration becomes really difficult to find among the large number of similar ones.
 
@@ -130,7 +130,8 @@ A good practice in CQS is to define many small, atomic handlers, thus splitting 
   services.AddHandlers(this.GetType().Assembly);
 ```
 
-It discovers all ```IQueryHandler<T, TR>``` and ```ICommandHandler<T, TR>``` implementations and registers them for you. (It works on the ```async``` versions as well!)
+It discovers all ```IQueryHandler<T, TR>``` and ```ICommandHandler<T, TR>``` implementations and registers them for you. (It works on the ```async``` versions as well.)
+As a result the large number of DI registration lines (like ```services.Add...<>()```) are replaced with a single line  (the one above).
 
 ## Decorating handlers
 
@@ -175,7 +176,7 @@ Decorating handlers can be nested of course. So, you can have a exception catchi
 
 Decorating handlers follow exactly the same layout as "normal" handlers. They inherit the same class as the decorated handler, but are not injected the same way. Instead, the decorated handler keeps track of its decorators. 
 
-The decorators are added in the decorated handler ctor like this:
+The decorators are added in the decorated handler constructor like this:
 ```
 public DecoratedQueryHandler(ILogger logger)
 {
