@@ -200,6 +200,6 @@ One thing to note &ndash; the first call to ```Add(...)``` adds a decorating han
 ## Roadmap
 This project is in a relatively stable state. However, its functionality may be extended, or it may contain bugs or other deffects and omissions.
 
-In such a case if you want to contribute please, open an issue or, if you have fixed something in the source code, create a pull request. 
+In such a case if you want to contribute please, open an [issue](https://github.com/Code-Solidi/OpenCqs/issues) or, if you have fixed something in the source code, create a pull request. 
 
 Thank you!
