@@ -1,6 +1,6 @@
-Live demo [here](https://infostore.codesolidi.com/). 
+**Live demo [here](https://infostore.codesolidi.com/).**
 
-The full source code of the application is [here](https://github.com/Code-Solidi/InfoStore). *Commands* and *queries* are in `UseCases`, *handlers*&mdash;in `Data\Handlers`. These are available in every CoreXF extension except `Bookshelf`.*
+(The full source code of the application is [here](https://github.com/Code-Solidi/InfoStore). *Commands* and *queries* are in `UseCases`, *handlers*&mdash;in `Data\Handlers`. These are available in every CoreXF extension except `Bookshelf`.*)
 
 # OpenCqs
 An implementation of CQS with built-in dependency injection of all handlers. More about it [here](https://blogs.cuttingedge.it/steven/posts/2011/meanwhile-on-the-command-side-of-my-architecture/) and [here](https://www.dotnetcurry.com/patterns-practices/1305/aspect-oriented-programming-aop-csharp-using-solid).
