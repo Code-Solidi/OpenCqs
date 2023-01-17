@@ -5,6 +5,9 @@ The **NuGet** package is available for [download](https://www.nuget.org/packages
 
 ```dotnet add package OpenCqs --version 1.0.1```
 
+## Demo applicataion (with full source code)
+You can take a look at the live demo application [here](https://infostore.codesolidi.com/). The full source code of the application is [here](https://github.com/Code-Solidi/InfoStore). More specifically, look in the following folders `UseCases` for commands and queries, and `Data\Handlers` for handlers. These are available in every CoreXF extension except `Bookshelf`.
+
 ## What is CQS?
 Command Query Separation (**CQS**) is a design pattern that first appeared in the Eiffel programming language, and was introduced by Bertrand Meyer. In just a sentence 
 it divides class methods in two major categories: 
