@@ -19,5 +19,10 @@ namespace OpenCqs2.Policies.Logging
         {
             this.Logger = this.loggerFactory.CreateLogger<T>();
         }
+
+        public virtual void LogMessage(string message)
+        {
+            this.Logger.LogInformation(message);
+        }
     }
 }

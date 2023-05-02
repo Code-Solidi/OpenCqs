@@ -7,26 +7,25 @@ namespace OpenCqs2.Proxies
 {
     public class ExceptionProxy<T> : DispatchProxy
     {
-        private T? decorated;
-        private ExceptionPolicy? policy;
+        private T? target;
+        private ExceptionPolicy policy = null!;
 
         protected override object? Invoke(MethodInfo? targetMethod, object?[]? args)
         {
-            object? result = default;
             try
             {
-                result = targetMethod?.Invoke(this.decorated, args);
+                return targetMethod?.Invoke(this.target, args);
             }
             catch (Exception x)
             {
-                var shouldRethrow = this.policy?.Handle(x, out var translated) ?? true;
+                var shouldRethrow = this.policy.Handle(x, out var wrapper);
                 if (shouldRethrow)
                 {
-                    throw;
+                    throw wrapper;
                 }
             }
 
-            return result;
+            return default;
         }
 
         public static T? Create(T target, IPolicy policy)
@@ -46,7 +45,7 @@ namespace OpenCqs2.Proxies
 
         private void Initialize(T decorated, IPolicy policy)
         {
-            this.decorated = decorated;
+            this.target = decorated;
             this.policy = (ExceptionPolicy)policy;
             this.policy.Initialize<T>();
         }

@@ -8,14 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Handlers\ExceptionQueryHandler.cs" />
-	  <Compile Remove="Handlers\LoggingQueryHandler.cs" />
 	  <Compile Remove="Program.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="Handlers\ExceptionQueryHandler.cs" />
-	  <None Include="Handlers\LoggingQueryHandler.cs" />
 	  <None Include="Program.cs" />
 	</ItemGroup>
 
@@ -28,6 +24,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="NetCoreStack.DispatchProxyAsync" Version="2.2.0" />
 	</ItemGroup>
 
 	<ItemGroup>

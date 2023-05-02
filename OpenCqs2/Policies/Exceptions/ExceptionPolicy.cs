@@ -20,10 +20,9 @@ namespace OpenCqs2.Policies.Exceptions
             this.Logger = this.loggerFactory.CreateLogger<T>();
         }
 
-        internal virtual bool Handle(Exception exception, out Exception translated)
+        public virtual bool Handle(Exception x, out Exception wrapper)
         {
-            this.Logger.LogError(exception.Message, exception);
-            translated = exception;
+            wrapper = x ?? throw new ArgumentNullException(nameof(x));
             return true;
         }
     }

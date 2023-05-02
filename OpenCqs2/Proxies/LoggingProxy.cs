@@ -29,9 +29,11 @@ namespace OpenCqs2.Proxies
 
         protected override object? Invoke(MethodInfo? targetMethod, object?[]? args)
         {
-            this.policy?.Logger.LogInformation($"Calling method {targetMethod?.Name} with arguments {string.Join(",", args ?? Array.Empty<object>())}");
+            this.policy?.LogMessage($"Calling method {targetMethod?.Name} with arguments {string.Join(",", args ?? Array.Empty<object>())}");
+            //this.policy?.Logger.LogInformation($"Calling method {targetMethod?.Name} with arguments {string.Join(",", args ?? Array.Empty<object>())}");
             var result = targetMethod?.Invoke(this.target, args);
-            this.policy?.Logger?.LogInformation($"Called method {targetMethod?.Name} with result {result}");
+            //this.policy?.Logger?.LogInformation($"Called method {targetMethod?.Name} with result {result}");
+            this.policy?.LogMessage($"Called method {targetMethod?.Name} with result {result}");
             return result;
         }
 
