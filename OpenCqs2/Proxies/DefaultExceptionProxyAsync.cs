@@ -1,14 +1,13 @@
 ﻿using OpenCqs2.Policies;
-using OpenCqs2.Policies.Exceptions;
 
 using System.Reflection;
 
 namespace OpenCqs2.Proxies
 {
-    public class ExceptionProxyAsync<T> : DispatchProxyAsync
+    public class DefaultExceptionProxyAsync<T> : DispatchProxyAsync
     {
         private T? target;
-        private ExceptionPolicy policy = null!;
+        private DefaultExceptionPolicy policy = null!;
 
 
         public static T? Create(T target, IPolicy policy)
@@ -16,10 +15,10 @@ namespace OpenCqs2.Proxies
             _ = target ?? throw new ArgumentNullException(nameof(target));
             _ = policy ?? throw new ArgumentNullException(nameof(policy));
 
-            object? proxy = Create<T, ExceptionProxyAsync<T>>();
+            object? proxy = Create<T, DefaultExceptionProxyAsync<T>>();
             if (proxy != null)
             {
-                var exceptionProxy = (ExceptionProxyAsync<T?>)proxy;
+                var exceptionProxy = (DefaultExceptionProxyAsync<T?>)proxy;
                 exceptionProxy.Initialize(target, policy);
             }
 
@@ -68,7 +67,7 @@ namespace OpenCqs2.Proxies
         private void Initialize(T decorated, IPolicy policy)
         {
             this.target = decorated;
-            this.policy = (ExceptionPolicy)policy;
+            this.policy = (DefaultExceptionPolicy)policy;
             this.policy.Initialize<T>();
         }
 

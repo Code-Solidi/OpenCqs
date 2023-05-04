@@ -1,7 +1,7 @@
 ﻿namespace OpenCqs2.Abstractions
 {
-    public interface ICommandHandlerAsync<TC, TR> : IHandler where TC : ICommand
+    public interface ICommandHandlerAsync<T> : IHandler where T : ICommand
     {
-        Task<HandlerResult<TR>> HandleAsync(TC command);
+        Task<HandlerResult> HandleAsync(T command);
     }
 }

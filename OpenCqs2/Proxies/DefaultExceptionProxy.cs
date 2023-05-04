@@ -1,14 +1,28 @@
 ﻿using OpenCqs2.Policies;
-using OpenCqs2.Policies.Exceptions;
 
 using System.Reflection;
 
 namespace OpenCqs2.Proxies
 {
-    public class ExceptionProxy<T> : DispatchProxy
+    public class DefaultExceptionProxy<T> : DispatchProxy
     {
         private T? target;
-        private ExceptionPolicy policy = null!;
+        private DefaultExceptionPolicy policy = null!;
+
+        public static T? Create(T target, IPolicy policy)
+        {
+            _ = target ?? throw new ArgumentNullException(nameof(target));
+            _ = policy ?? throw new ArgumentNullException(nameof(policy));
+
+            object? proxy = Create<T, DefaultExceptionProxy<T>>();
+            if (proxy != null)
+            {
+                var exceptionProxy = (DefaultExceptionProxy<T?>)proxy;
+                exceptionProxy.Initialize(target, policy);
+            }
+
+            return (T?)proxy;
+        }
 
         protected override object? Invoke(MethodInfo? targetMethod, object?[]? args)
         {
@@ -28,25 +42,10 @@ namespace OpenCqs2.Proxies
             return default;
         }
 
-        public static T? Create(T target, IPolicy policy)
-        {
-            _ = target ?? throw new ArgumentNullException(nameof(target));
-            _ = policy ?? throw new ArgumentNullException(nameof(policy));
-
-            object? proxy = Create<T, ExceptionProxy<T>>();
-            if (proxy != null)
-            {
-                var exceptionProxy = (ExceptionProxy<T?>)proxy;
-                exceptionProxy.Initialize(target, policy);
-            }
-
-            return (T?)proxy;
-        }
-
         private void Initialize(T decorated, IPolicy policy)
         {
             this.target = decorated;
-            this.policy = (ExceptionPolicy)policy;
+            this.policy = (DefaultExceptionPolicy)policy;
             this.policy.Initialize<T>();
         }
     }

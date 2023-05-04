@@ -41,7 +41,7 @@ namespace OpenCqs2Demo.Handlers
         internal static IQueryHandlerAsync<DecoratedTestQueryAsync, string?> CreateProxy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            return LoggingProxy<IQueryHandlerAsync<DecoratedTestQueryAsync, string?>>.Create(new DecoratedQueryHandlerAsync(), new DemoLoggingPolicy(provider))!;
+            return DefaultLoggingProxy<IQueryHandlerAsync<DecoratedTestQueryAsync, string?>>.Create(new DecoratedQueryHandlerAsync(), new DemoLoggingPolicy(provider))!;
         }
 
 
@@ -56,7 +56,7 @@ namespace OpenCqs2Demo.Handlers
         internal static IQueryHandlerAsync<DivisionByZeroQueryAsync, int> CreateProxy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            return ExceptionProxyAsync<IQueryHandlerAsync<DivisionByZeroQueryAsync, int>>.Create(new DivisionByZeroQueryHandlerAsync(), new DemoExceptionPolicy(provider/*, true*/))!;
+            return DefaultExceptionProxyAsync<IQueryHandlerAsync<DivisionByZeroQueryAsync, int>>.Create(new DivisionByZeroQueryHandlerAsync(), new DemoExceptionPolicy(provider/*, true*/))!;
         }
 
         async Task<HandlerResult<int>> IQueryHandlerAsync<DivisionByZeroQueryAsync, int>.HandleAsync(DivisionByZeroQueryAsync query)

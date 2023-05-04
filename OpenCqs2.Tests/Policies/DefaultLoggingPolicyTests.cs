@@ -1,21 +1,21 @@
-using System;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using NSubstitute;
 
-using OpenCqs2.Policies.Exceptions;
+using OpenCqs2.Policies;
+
+using System;
 
 using T = System.String;
 
-namespace OpenCqs2.Tests.Policies.Exceptions
+namespace OpenCqs2.Tests.Policies
 {
     [TestClass]
-    public class ExceptionPolicyTests
+    public class DefaultLoggingPolicyTests
     {
-        private ExceptionPolicy testClass = null!;
+        private DefaultLoggingPolicy testClass = null!;
         private IServiceProvider provider = null!;
 
         [TestInitialize]
@@ -25,14 +25,14 @@ namespace OpenCqs2.Tests.Policies.Exceptions
             var loggerFactory = Substitute.For<ILoggerFactory>();
             services.AddSingleton(loggerFactory);
             this.provider = services.BuildServiceProvider();
-            this.testClass = new ExceptionPolicy(this.provider);
+            this.testClass = new DefaultLoggingPolicy(this.provider);
         }
 
         [TestMethod]
         public void CanConstruct()
         {
             // Act
-            var instance = new ExceptionPolicy(this.provider);
+            var instance = new DefaultLoggingPolicy(this.provider);
 
             // Assert
             Assert.IsNotNull(instance);
@@ -41,7 +41,7 @@ namespace OpenCqs2.Tests.Policies.Exceptions
         [TestMethod]
         public void CannotConstructWithNullProvider()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new ExceptionPolicy(default!));
+            Assert.ThrowsException<ArgumentNullException>(() => new DefaultLoggingPolicy(default(IServiceProvider)));
         }
 
         [TestMethod]
@@ -55,23 +55,30 @@ namespace OpenCqs2.Tests.Policies.Exceptions
         }
 
         [TestMethod]
-        public void CanCallHandle()
+        public void CanCallLogMessage()
         {
             // Arrange
-            var x = new Exception();
+            this.testClass.Initialize<T>();
+            var message = "TestValue582430697";
 
             // Act
-            var result = this.testClass.Handle(x, out var wrapper);
+            this.testClass.LogMessage(message);
 
             // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(x, wrapper);
+            //Assert.Fail("Create or modify test");
         }
 
-        [TestMethod]
-        public void CannotCallHandleWithNullX()
+        [DataTestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow("   ")]
+        public void CannotCallLogMessageWithInvalidMessage(string value)
         {
-            Assert.ThrowsException<ArgumentNullException>(() => this.testClass.Handle(default!, out _));
+            // Arrange
+            this.testClass.Initialize<T>();
+
+            // Assert
+            Assert.ThrowsException<ArgumentException>(() => this.testClass.LogMessage(value));
         }
 
         [TestMethod]

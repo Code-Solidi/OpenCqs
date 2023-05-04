@@ -27,8 +27,4 @@
 		<PackageReference Include="NetCoreStack.DispatchProxyAsync" Version="2.2.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Policies\Logging\" />
-	</ItemGroup>
-
 </Project>

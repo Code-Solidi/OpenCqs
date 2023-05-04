@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace OpenCqs2.Policies.Logging
+namespace OpenCqs2.Policies
 {
-    public class LoggingPolicy : IPolicy
+    public class DefaultLoggingPolicy : IPolicy
     {
-        public LoggingPolicy(IServiceProvider provider)
+        public DefaultLoggingPolicy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            this.loggerFactory = provider.GetRequiredService<ILoggerFactory>();
+            loggerFactory = provider.GetRequiredService<ILoggerFactory>();
         }
 
         private readonly ILoggerFactory loggerFactory;
@@ -22,6 +22,11 @@ namespace OpenCqs2.Policies.Logging
 
         public virtual void LogMessage(string message)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentException($"'{nameof(message)}' cannot be null or whitespace.", nameof(message));
+            }
+
             this.Logger.LogInformation(message);
         }
     }

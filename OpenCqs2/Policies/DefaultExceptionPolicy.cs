@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace OpenCqs2.Policies.Exceptions
+namespace OpenCqs2.Policies
 {
-    public class ExceptionPolicy : IPolicy
+    public class DefaultExceptionPolicy : IPolicy
     {
-        public ExceptionPolicy(IServiceProvider provider)
+        public DefaultExceptionPolicy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            this.loggerFactory = provider.GetRequiredService<ILoggerFactory>();
+            loggerFactory = provider.GetRequiredService<ILoggerFactory>();
         }
 
         private readonly ILoggerFactory loggerFactory;
@@ -17,7 +17,7 @@ namespace OpenCqs2.Policies.Exceptions
 
         public virtual void Initialize<T>()
         {
-            this.Logger = this.loggerFactory.CreateLogger<T>();
+            Logger = loggerFactory.CreateLogger<T>();
         }
 
         public virtual bool Handle(Exception x, out Exception wrapper)

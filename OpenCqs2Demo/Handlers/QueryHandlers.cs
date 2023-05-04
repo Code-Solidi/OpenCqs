@@ -41,7 +41,7 @@ namespace OpenCqs2Demo.Handlers
         internal static IQueryHandler<DecoratedTestQuery, string?> CreateProxy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            return LoggingProxy<IQueryHandler<DecoratedTestQuery, string?>>.Create(new DecoratedQueryHandler(), new DemoLoggingPolicy(provider))!;
+            return DefaultLoggingProxy<IQueryHandler<DecoratedTestQuery, string?>>.Create(new DecoratedQueryHandler(), new DemoLoggingPolicy(provider))!;
         }
 
         HandlerResult<string?> IQueryHandler<DecoratedTestQuery, string?>.Handle(DecoratedTestQuery query)
@@ -56,7 +56,7 @@ namespace OpenCqs2Demo.Handlers
         internal static IQueryHandler<DivisionByZeroQuery, int> CreateProxy(IServiceProvider provider)
         {
             _ = provider ?? throw new ArgumentNullException(nameof(provider));
-            return ExceptionProxy<IQueryHandler<DivisionByZeroQuery, int>>.Create(new DivisionByZeroQueryHandler(), new DemoExceptionPolicy(provider))!;
+            return DefaultExceptionProxy<IQueryHandler<DivisionByZeroQuery, int>>.Create(new DivisionByZeroQueryHandler(), new DemoExceptionPolicy(provider))!;
         }
 
         HandlerResult<int> IQueryHandler<DivisionByZeroQuery, int>.Handle(DivisionByZeroQuery query)

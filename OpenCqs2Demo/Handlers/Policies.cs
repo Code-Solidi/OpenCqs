@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-
-using OpenCqs2.Policies.Exceptions;
-using OpenCqs2.Policies.Logging;
+using OpenCqs2.Policies;
 
 namespace OpenCqs2Demo.Handlers
 {
-    internal class DemoLoggingPolicy : LoggingPolicy
+    internal class DemoLoggingPolicy : DefaultLoggingPolicy
     {
         public DemoLoggingPolicy(IServiceProvider provider) : base(provider)
         {
@@ -17,7 +15,7 @@ namespace OpenCqs2Demo.Handlers
         }
     }
 
-    internal class DemoExceptionPolicy : ExceptionPolicy
+    internal class DemoExceptionPolicy : DefaultExceptionPolicy
     {
         private readonly bool reThrow;
 

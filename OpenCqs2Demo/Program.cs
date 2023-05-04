@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using OpenCqs2;
 using OpenCqs2.Abstractions;
 
+using OpenCqs2Demo.Commands;
 using OpenCqs2Demo.Queries;
 
 namespace OpenCqs2Demo
@@ -13,7 +14,7 @@ namespace OpenCqs2Demo
     {
         private static void Main(string[] args)
         {
-            var services = RegisterServices(args);
+            var services = Program.RegisterServices(args);
 
             // a service used in DemoQueryHandler (ctor DI in DemoQueryHandler)
             services.AddScoped<IValueProvider, IntValueProvider>();
@@ -23,18 +24,9 @@ namespace OpenCqs2Demo
             Program.QueryHandling(services);
             Program.QueryHandlingAsync(services).GetAwaiter().GetResult();
 
-            /*Program.CommandHandling(services);
+            Program.CommandHandling(services);
             Program.CommandHandlingAsync(services).GetAwaiter().GetResult();
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();*/
-
-            /*var provider = services.BuildServiceProvider();
-            var handler = provider.GetRequiredService<IQueryHandler<DemoQuery, string?>>();
-            var query = new DemoQuery { Text = "Hello" };
-            var result = handler.Handle(query);
-
-            Console.WriteLine(result);*/
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -97,6 +89,58 @@ namespace OpenCqs2Demo
                 {
                     await Console.Out.WriteLineAsync($"*** {x.Message} ***");
                 }*/
+            }
+        }
+
+        private static void CommandHandling(IServiceCollection services)
+        {
+            Console.WriteLine($"{Environment.NewLine}CommandHandling:");
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                Console.WriteLine(new string('-', 80));
+                var testHandler = serviceProvider.GetRequiredService<ICommandHandler<TestCommand>>();
+                var testResult = testHandler?.Handle(new TestCommand { Arg = "Lorem ipsum dolor sit amet" });
+                Console.WriteLine(testResult?.ToString());
+
+                Console.WriteLine(new string('-', 80));
+                var testWithValueHandler = serviceProvider.GetRequiredService<ICommandHandler<TestWithValueCommand>>();
+                var testWithValueResult = testWithValueHandler?.Handle(new TestWithValueCommand { Value = 321 });
+                Console.WriteLine(testWithValueResult?.ToString());
+
+                Console.WriteLine(new string('-', 80));
+                var decoratedTestHandler = serviceProvider.GetRequiredService<ICommandHandler<DecoratedTestCommand>>();
+                var decoratedTestResult = decoratedTestHandler?.Handle(new DecoratedTestCommand { Arg = "Black Bird" });
+                Console.WriteLine(decoratedTestResult);
+
+                Console.WriteLine(new string('-', 80));
+                var divizionByZeroHandler = serviceProvider.GetRequiredService<ICommandHandler<DivisionByZeroCommand>>();
+                _ = divizionByZeroHandler?.Handle(new DivisionByZeroCommand());
+            }
+        }
+
+        private static async Task CommandHandlingAsync(IServiceCollection services)
+        {
+            Console.WriteLine($"{Environment.NewLine}CommandHandling Async:");
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                Console.WriteLine(new string('-', 80));
+                var testHandler = serviceProvider.GetRequiredService<ICommandHandlerAsync<TestCommandAsync>>();
+                var testResult = await testHandler.HandleAsync(new TestCommandAsync { Arg = "Lorem ipsum dolor sit amet" });
+                Console.WriteLine(testResult.ToString());
+
+                Console.WriteLine(new string('-', 80));
+                var testWithValueHandler = serviceProvider.GetRequiredService<ICommandHandlerAsync<TestWithValueCommandAsync>>();
+                var testWithValueResult = await testWithValueHandler.HandleAsync(new TestWithValueCommandAsync { Value = 321 });
+                Console.WriteLine(testWithValueResult.ToString());
+
+                Console.WriteLine(new string('-', 80));
+                var decoratedTestHandler = serviceProvider.GetRequiredService<ICommandHandlerAsync<DecoratedTestCommandAsync>>();
+                var decoratedTestResult = await decoratedTestHandler.HandleAsync(new DecoratedTestCommandAsync { Arg = "Black Bird" });
+                Console.WriteLine(decoratedTestResult);
+
+                Console.WriteLine(new string('-', 80));
+                var divizionByZeroHandler = serviceProvider.GetRequiredService<ICommandHandlerAsync<DivisionByZeroCommandAsync>>();
+                _ = await divizionByZeroHandler.HandleAsync(new DivisionByZeroCommandAsync());
             }
         }
 

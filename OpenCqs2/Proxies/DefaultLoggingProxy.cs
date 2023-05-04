@@ -1,26 +1,23 @@
-﻿using Microsoft.Extensions.Logging;
-
-using OpenCqs2.Policies;
-using OpenCqs2.Policies.Logging;
+﻿using OpenCqs2.Policies;
 
 using System.Reflection;
 
 namespace OpenCqs2.Proxies
 {
-    public class LoggingProxy<T> : DispatchProxy
+    public class DefaultLoggingProxy<T> : DispatchProxy
     {
         private T? target;
-        private LoggingPolicy? policy;
+        private DefaultLoggingPolicy? policy;
 
         public static T? Create(T target, IPolicy policy)
         {
             _ = target ?? throw new ArgumentNullException(nameof(target));
             _ = policy ?? throw new ArgumentNullException(nameof(policy));
 
-            object? proxy = Create<T, LoggingProxy<T>>();
+            object? proxy = Create<T, DefaultLoggingProxy<T>>();
             if (proxy != null)
             {
-                var loggingProxy = (LoggingProxy<T?>)proxy;
+                var loggingProxy = (DefaultLoggingProxy<T?>)proxy;
                 loggingProxy.Initialize(target, policy);
             }
 
@@ -40,7 +37,7 @@ namespace OpenCqs2.Proxies
         private void Initialize(T decorated, IPolicy policy)
         {
             this.target = decorated;
-            this.policy = (LoggingPolicy)policy;
+            this.policy = (DefaultLoggingPolicy)policy;
             this.policy.Initialize<T>();
         }
     }

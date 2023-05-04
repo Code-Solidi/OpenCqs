@@ -7,10 +7,27 @@ using System.Reflection;
 
 namespace OpenCqs2
 {
+    /// <summary>
+    ///   <br />
+    /// </summary>
+    /// TODO Edit XML Comment Template for OpenCqsExtension
     public static class OpenCqsExtension
     {
+        /// <summary>Adds the handlers.</summary>
+        /// <param name="services">The services.</param>
+        /// <param name="assemblies">The assemblies.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">services
+        /// or
+        /// assemblies</exception>
+        /// TODO Edit XML Comment Template for AddHandlers
         public static IServiceCollection AddHandlers(this IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
+            _ = services ?? throw new ArgumentNullException(nameof(services));
+            _ = assemblies ?? throw new ArgumentNullException(nameof(assemblies));
+
             foreach (var assembly in assemblies)
             {
                 services = services.AddHandlers(assembly);
@@ -19,8 +36,21 @@ namespace OpenCqs2
             return services;
         }
 
+        /// <summary>Adds the handlers.</summary>
+        /// <param name="services">The services.</param>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">services
+        /// or
+        /// assembly</exception>
+        /// TODO Edit XML Comment Template for AddHandlers
         public static IServiceCollection AddHandlers(this IServiceCollection services, Assembly assembly)
         {
+            _ = services ?? throw new ArgumentNullException(nameof(services));
+            _ = assembly ?? throw new ArgumentNullException(nameof(assembly));
+
             foreach (var type in OpenCqsExtension.GetHandlerTypes(assembly))
             {
                 var service = (type as TypeInfo)?.ImplementedInterfaces.Single(x => x != typeof(IHandler) && typeof(IHandler).IsAssignableFrom(x));
@@ -51,24 +81,6 @@ namespace OpenCqs2
             }
 
             return services;
-
-            //var factory = new DefaultServiceProviderFactory();
-            //var serviceProvider = factory?.CreateServiceProvider(services); //services.BuildServiceProvider() -- difference??
-            //using (var scope = serviceProvider?.CreateScope())
-            //{
-            //    services.TryAddScoped<IQueryHandler<DemoQuery, string?>>(provider =>
-            //    {
-            //        var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
-            //        return LoggingProxy<DemoQueryHandler>.Create(new DemoQueryHandler(loggerFactory))!;
-            //    });
-            //    return services;
-            //}
-        }
-
-        public static object? CreateProxy(this Type type, IServiceProvider provider)
-        {
-            var createProxy = type.GetMethod("CreateProxy");
-            return createProxy?.Invoke(type, new[] { provider });
         }
 
         /// <summary>
